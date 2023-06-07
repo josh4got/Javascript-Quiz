@@ -94,12 +94,11 @@ main {
 }
 
 #highscoreList {
-  list-style: none;
+  list-style-type: none;
   padding: 0;
-  margin-top: 20px;
+  margin: 0;
 }
 
 #highscoreList li {
-  font-size: 18px;
   margin-bottom: 10px;
 }

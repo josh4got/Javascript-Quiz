@@ -84,10 +84,16 @@ function endQuiz() {
   // Prompt user for initials
   var initials = prompt("Enter your initials:");
 
-  // Store score with initials
+  // Retrieve scores from local storage
+  var storedScores = localStorage.getItem("scores");
+
+  // Parse stored scores from local storage or initialize as an empty array
+  scores = storedScores ? JSON.parse(storedScores) : [];
+
+  // Store current score with initials
   scores.push({ initials: initials, score: score });
 
-  // Store scores in local storage
+  // Store updated scores in local storage
   localStorage.setItem("scores", JSON.stringify(scores));
 
   // Hide quiz section and display highscores section
@@ -190,9 +196,12 @@ startBtn.addEventListener("click", startQuiz);
 scoreBtn.addEventListener("click", function () {
   resetDisplay();
   highscores.style.display = "block";
+  startBtn.style.display = "none";
+  welcome.style.display = "none";
 });
 returnBtn.addEventListener("click", function () {
   resetDisplay();
-  welcome.style.display = "block";
+  welcome.style.display = "flex";
+  startBtn.style.display = "flex";
 });
 answers.addEventListener("click", checkAnswer);
