@@ -4,53 +4,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Web Development Profile</title>
-  <link rel="stylesheet" href="./assets/css/reset.css" />
-  <link rel="stylesheet" href="./Assets/css/style.css" />
+  <title>Javascript Quiz</title>
+  <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 
 <body>
-    <section>
+  <section>
+    <header>
+      <section>
+        <button id="scoreBtn" class="button">View Highscores</button>
+      </section>
+      <section id="time">
+        Time:
+      </section>
+    </header>
+
+    <main>
+      <section id="welcome">
+        <h1>Welcome to the Javascript Quiz</h1>
+        <button id="startBtn" class="button">
+          Begin Quiz
+        </button>
+      </section>
+
+      <section id="quiz">
         <section>
-            <h3>View Highscores</h3>
-            <h3>Time:</h3>
-        </section>    
+          <h2 id="question"></h2>
+        </section>
+        <section id="answers">
+          <button class="button2" id="A"></button>
+          <button class="button2" id="B"></button>
+          <button class="button2" id="C"></button>
+          <button class="button2" id="D"></button>
+        </section>
+        <section id="correct">
+          <h2>Correct</h2>
+        </section>
+        <section id="wrong">
+          <h2>Wrong</h2>
+        </section>
+      </section>
 
-        <main>
+      <section id="highscores">
+        <h1>Highscores</h1>
+        <ol id="highscoreList"></ol>
+        <button id="return" class="button">Return</button>
+      </section>
+    </main>
 
-            <section id="Welcome">
-                <h1>Welcome to the Javascript Quiz</h1>
-                <div id="Begin Quiz" class="button">
-                    <p>Begin Quiz</p>
-                </div>
+    <script src="./assets/js/script.js"></script>
+</body>
 
-            </section>
-
-                <section id="Q1">
-                    <h2> Question 1 </h2>
-                    <ol></ol>
-                </section>
-
-                <section id="Q2" >
-                    <h2> Question 2? </h2>
-                    <ol></ol>
-                </section>
-
-                <section id="Q3">
-                    <h2> Question 3? </h2>
-                    <ol></ol>
-                </section>
-        
-                <section id="Q4">
-                    <h2> Question 4? </h2>
-                    <ol></ol>
-                </section>
-    
-                <section id="highscores">
-                            <h2>Highscores</h2>
-                            <ol></ol>
-                </section>
-            
-        </main> 
-
-    </body>
+</html>
