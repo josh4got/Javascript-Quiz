@@ -6,6 +6,7 @@ var timer = document.querySelector("#time");
 var startBtn = document.querySelector("#startBtn");
 var scoreBtn = document.querySelector("#scoreBtn");
 var returnBtn = document.querySelector("#return");
+var clearBtn = document.querySelector("#clearBtn");
 var answers = document.querySelector("#answers");
 var button2 = document.querySelectorAll(".button2");
 var correct = document.querySelector("#correct");
@@ -14,35 +15,35 @@ var question = document.querySelector("#question");
 var scores = [];
 
 var question1 = {
-  Q: "Question 1",
-  A: "1",
-  B: "1",
-  C: "1",
-  D: "1",
+  Q: "What is the correct way to declare a JavaScript variable?",
+  A: "variable myVariable",
+  B: "var myVariable",
+  C: "let myVariable",
+  D: "const myVariable",
   answer: "B",
 };
 var question2 = {
-  Q: "Question 2",
-  A: "2",
+  Q: "What is the result of the following expression: 10 % 3?",
+  A: "1",
   B: "2",
-  C: "2",
-  D: "2",
-  answer: "B",
+  C: "3",
+  D: "4",
+  answer: "A",
 };
 var question3 = {
-  Q: "Question 3",
-  A: "3",
-  B: "3",
-  C: "3",
-  D: "3",
-  answer: "B",
+  Q: "Which keyword is used to declare a function in JavaScript?",
+  A: "function",
+  B: "method",
+  C: "procedure",
+  D: "def",
+  answer: "A",
 };
 var question4 = {
-  Q: "Question 4",
-  A: "4",
-  B: "4",
-  C: "4",
-  D: "4",
+  Q: "What is the output of the following code?\nconsole.log(typeof([]));",
+  A: "array",
+  B: "object",
+  C: "undefined",
+  D: "string",
   answer: "B",
 };
 var questions = [question1, question2, question3, question4];
@@ -74,20 +75,14 @@ function startQuiz() {
     }
   }, 1000);
 
-  // Display first question
   displayQuestion();
 }
 
 function endQuiz() {
-  clearInterval(timerInterval);
 
-  // Prompt user for initials
   var initials = prompt("Enter your initials:");
-
-  // Retrieve scores from local storage
   var storedScores = localStorage.getItem("scores");
 
-  // Parse stored scores from local storage or initialize as an empty array
   scores = storedScores ? JSON.parse(storedScores) : [];
 
   // Store current score with initials
@@ -96,11 +91,16 @@ function endQuiz() {
   // Store updated scores in local storage
   localStorage.setItem("scores", JSON.stringify(scores));
 
+  // Reset variables
+  currentQuestionIndex = 0;
+  timeLeft = 60;
+  score = 0;
+
   // Hide quiz section and display highscores section
   quiz.style.display = "none";
   highscores.style.display = "block";
 
-  // Display highscores
+  clearInterval(timerInterval);
   displayHighscores();
 }
 
@@ -118,7 +118,6 @@ function resetDisplay() {
     button2[i].textContent = "";
   }
 
-  // Hide feedback displays
   correct.style.display = "none";
   wrong.style.display = "none";
 }
@@ -126,7 +125,6 @@ function resetDisplay() {
 function displayQuestion() {
   var currentQuestion = questions[currentQuestionIndex];
 
-  // Display current question and answers
   question.textContent = currentQuestion.Q;
   button2[0].textContent = currentQuestion.A;
   button2[1].textContent = currentQuestion.B;
@@ -137,20 +135,16 @@ function displayQuestion() {
 function displayHighscores() {
   var storedScores = localStorage.getItem("scores");
 
-  // Parse stored scores from local storage
   if (storedScores) {
     scores = JSON.parse(storedScores);
   }
-
   // Sort scores in descending order
   scores.sort(function (a, b) {
     return b.score - a.score;
   });
-
   // Clear previous highscores display
   var ol = document.querySelector("#highscoreList");
   ol.innerHTML = "";
-
   // Display highscores
   for (var i = 0; i < scores.length; i++) {
     var li = document.createElement("li");
@@ -159,34 +153,31 @@ function displayHighscores() {
   }
 }
 
+// Check answer function
 function checkAnswer(event) {
   var selectedAnswer = event.target.id;
   var currentQuestion = questions[currentQuestionIndex];
 
-  // Check if the selected answer is correct
   if (selectedAnswer === currentQuestion.answer) {
     // Display correct feedback
     correct.style.display = "block";
-    // Increase score by 10 points
+    wrong.style.display = "none";
     score += 10;
   } else {
     // Display wrong feedback
     wrong.style.display = "block";
-    // Decrease score by 10 points
+    correct.style.display = "none";
     score -= 10;
     if (score < 0) {
       score = 0;
     }
   }
 
-  // Move to the next question
   currentQuestionIndex++;
-
   // Check if all questions have been answered
   if (currentQuestionIndex >= questions.length) {
     endQuiz();
   } else {
-    // Display the next question
     displayQuestion();
   }
 }
@@ -203,5 +194,9 @@ returnBtn.addEventListener("click", function () {
   resetDisplay();
   welcome.style.display = "flex";
   startBtn.style.display = "flex";
+});
+clearBtn.addEventListener("click", function () {
+  localStorage.clear();
+  displayHighscores();
 });
 answers.addEventListener("click", checkAnswer);
