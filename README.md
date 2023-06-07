@@ -22,10 +22,10 @@ No installation is required to use this project simply navigate to the web aplic
 
 To use the JS Quiz Application follow the simple steps below!
 
-1. Navigate to the deployed [Web Application]()
+1. Navigate to the deployed [Web Application](https://josh4got.github.io/Javascript-Quiz/)
 2. Click on begin quiz to begin or use the view highscores button to see previous scores.
 
-![Deployed Screenshot]()
+![Deployed Screenshot](./assets/images/Deployed-JS-Quiz.PNG)
 
 ## License
 
